@@ -1,11 +1,12 @@
+import React from "react";
 import "./App.css";
-import ApiIntegrator from "./TestAPisIntegration/ApiIntegrator";
+import AppRoutes from "./routes";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ paddingTop: "56px" }}>
       <header className="App-header">
-        <ApiIntegrator />
+        <AppRoutes />
       </header>
     </div>
   );
