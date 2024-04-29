@@ -27,14 +27,14 @@ function ContractForm() {
                 onChange={(e) => setContractType(e.target.value)}
               />
             </div>
+            <div className="col-md-6 d-flex align-items-end flex-column">
+              <div className="mt-auto p-2">
+                <button type="submit" className="btn btn-primary mt-2">
+                  Create Contract
+                </button>
+              </div>
+            </div>
           </form>
-        </div>
-        <div className="col-md-6 d-flex align-items-end flex-column">
-          <div className="mt-auto p-2">
-            <button type="submit" className="btn btn-primary mt-2">
-              Create Contract
-            </button>
-          </div>
         </div>
       </div>
     </div>
