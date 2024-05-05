@@ -1,12 +1,16 @@
 import React from "react";
-import CustomerForm from "./CustomerForm";
+import "./CustomersPage.scss";
+import CustomersTable from "./CustomersTable";
 
-function CustomersPage() {
+const CustomersPage = () => {
   return (
-    <div className="container mt-4">
-      <CustomerForm />
+    <div className="customers-container">
+      <div className="create-button-row">
+        <div className="create-button">Create Customer</div>
+      </div>
+      <CustomersTable />
     </div>
   );
-}
+};
 
 export default CustomersPage;
