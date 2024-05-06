@@ -1,32 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Navigation.scss";
 
-function Navigation() {
+const Navigation = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
-          MyApp
-        </NavLink>
-        <div className="navbar-nav">
+    <nav className="navbar">
+      <ul className="nav-links">
+        <li>
           <NavLink
-            className="nav-item nav-link"
             to="/contracts"
-            activeClassName="active"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
           >
-            Contract Management
+            Contracts
           </NavLink>
+        </li>
+        <li>
           <NavLink
-            className="nav-item nav-link"
             to="/customers"
-            activeClassName="active"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
           >
-            Customer Management
+            Customers
           </NavLink>
-        </div>
-      </div>
+        </li>
+        {/* Add more links as needed */}
+      </ul>
     </nav>
   );
-}
+};
 
 export default Navigation;

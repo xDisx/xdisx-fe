@@ -1,5 +1,9 @@
 import contractApiClient from "../utils/contractApiClient";
 
-export function createContract(contractType) {
-  return contractApiClient.post("/contract", { contractType });
+export function createContract(contractType, customerId) {
+  return contractApiClient.post("/contract", { contractType, customerId });
 }
+
+export const getContracts = () => {
+  return contractApiClient.get("/contracts");
+};

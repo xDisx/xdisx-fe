@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const contractApiClient = axios.create({
-  baseURL: "http://localhost:1242/xdisx",
+  baseURL: "http://localhost:1243/api/contract/xdisx",
 });
 
 export default contractApiClient;
