@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import ServiceUnavailable from "../common/reusable/ServiceUnavailable";
 
-const CustomersTable = () => {
-  const [customers] = useState([
-    { id: 1, customerType: "Full-Time", created: "2022-01-01" },
-    { id: 2, customerType: "Part-Time", created: "2022-02-15" },
-    { id: 3, customerType: "Consultant", created: "2022-03-20" },
-  ]);
+const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
+  if (serviceUnavailableMessage) {
+    return <ServiceUnavailable message={serviceUnavailableMessage} />;
+  }
 
   return (
     <div className="table-container">

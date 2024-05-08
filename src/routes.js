@@ -4,6 +4,7 @@ import ContractsPage from "./components/contracts/ContractsPage";
 import CustomersPage from "./components/customers/CustomersPage";
 import Navigation from "./components/common/Navigation";
 import CreateContractPage from "./components/contracts/CreateContractPage";
+import CreateCustomerPage from "./components/customers/CreateCustomerPage";
 
 function AppRoutes() {
   return (
@@ -13,6 +14,7 @@ function AppRoutes() {
         <Route path="/contracts" element={<ContractsPage />} />
         <Route path="/customers" element={<CustomersPage />} />
         <Route path="/contracts/create" element={<CreateContractPage />} />
+        <Route path="/customers/create" element={<CreateCustomerPage />} />
       </Routes>
     </Router>
   );
