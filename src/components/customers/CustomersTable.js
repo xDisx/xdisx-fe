@@ -25,7 +25,7 @@ const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
                 {customer.firstName} {customer.lastName}
               </td>
               <td>{customer.email}</td>
-              <td>{customer.created}</td>
+              <td>{customer.created} UTC</td>
             </tr>
           ))}
         </tbody>
