@@ -12,7 +12,8 @@ const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Type</th>
+            <th>Name</th>
+            <th>Email</th>
             <th>Created</th>
           </tr>
         </thead>
@@ -20,7 +21,10 @@ const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
           {customers.map((customer) => (
             <tr key={customer.id}>
               <td>{customer.id}</td>
-              <td>{customer.customerType}</td>
+              <td>
+                {customer.firstName} {customer.lastName}
+              </td>
+              <td>{customer.email}</td>
               <td>{customer.created}</td>
             </tr>
           ))}

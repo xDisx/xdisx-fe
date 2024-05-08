@@ -1,7 +1,19 @@
 import customerApiClient from "../utils/customerApiClient";
 
-export function createCustomer(customerType) {
-  return customerApiClient.post("/customer", { customerType });
+export function createCustomer(
+  firstName,
+  lastName,
+  email,
+  phoneNumber,
+  address
+) {
+  return customerApiClient.post("/customer", {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    address,
+  });
 }
 
 export const getCustomers = () => {
