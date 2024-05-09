@@ -6,6 +6,8 @@ import Navigation from "./components/common/Navigation";
 import CreateContractPage from "./components/contracts/CreateContractPage";
 import CreateCustomerPage from "./components/customers/CreateCustomerPage";
 import CustomerDetailsPage from "./components/customers/CustomerDetailsPage";
+import ProductsPage from "./components/products/ProductsPage";
+import CreateProductsPage from "./components/products/CreateProductsPage";
 
 function AppRoutes() {
   return (
@@ -14,9 +16,11 @@ function AppRoutes() {
       <Routes>
         <Route path="/contracts" element={<ContractsPage />} />
         <Route path="/customers" element={<CustomersPage />} />
+        <Route path="/products" element={<ProductsPage />} />
         <Route path="/customers/:id" element={<CustomerDetailsPage />} />
         <Route path="/contracts/create" element={<CreateContractPage />} />
         <Route path="/customers/create" element={<CreateCustomerPage />} />
+        <Route path="/products/create" element={<CreateProductsPage />} />
       </Routes>
     </Router>
   );
