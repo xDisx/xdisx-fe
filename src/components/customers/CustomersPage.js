@@ -20,11 +20,12 @@ const CustomersPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCustomersDirect(searchParams);
+    fetchCustomersDirect(searchParams, currentPage);
+    // eslint-disable-next-line
   }, [currentPage]);
 
-  const fetchCustomersDirect = (params) => {
-    getCustomers(params, currentPage)
+  const fetchCustomersDirect = (params, page) => {
+    getCustomers(params, page)
       .then((response) => {
         if (response.data.customers) {
           setCustomers(response.data.customers);
@@ -49,13 +50,17 @@ const CustomersPage = () => {
   };
 
   const handleSearchSubmit = () => {
-    fetchCustomersDirect(searchParams);
+    const page = 0;
+    setCurrentPage(page);
+    fetchCustomersDirect(searchParams, page);
   };
 
   const handleSearchClear = () => {
     const resetParams = { customerName: "", email: "", phoneNumber: "" };
+    const page = 0;
     setSearchParams(resetParams);
-    fetchCustomersDirect(resetParams); // Pass the reset parameters directly
+    setCurrentPage(page);
+    fetchCustomersDirect(resetParams, page); // Pass the reset parameters directly
   };
 
   const handlePageClick = (page) => {
