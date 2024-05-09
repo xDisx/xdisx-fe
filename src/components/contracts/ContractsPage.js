@@ -12,7 +12,7 @@ const ContractsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getContracts()
+    getContracts({}, 0)
       .then((response) => {
         if (response.data.contracts) {
           setContracts(response.data.contracts);

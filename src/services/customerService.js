@@ -24,3 +24,7 @@ export const getCustomers = (searchParams, page) => {
 
   return customerApiClient.get("/customers", { params: params });
 };
+
+export const getCustomer = (id) => {
+  return customerApiClient.get(`/customers/${id}`);
+};

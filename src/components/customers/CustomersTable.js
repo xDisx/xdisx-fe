@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ServiceUnavailable from "../common/reusable/ServiceUnavailable";
 
 const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
+  const navigate = useNavigate();
+
   if (serviceUnavailableMessage) {
     return <ServiceUnavailable message={serviceUnavailableMessage} />;
   }
@@ -19,7 +22,10 @@ const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
         </thead>
         <tbody>
           {customers.map((customer) => (
-            <tr key={customer.id}>
+            <tr
+              key={customer.id}
+              onClick={() => navigate(`/customers/${customer.id}`)}
+            >
               <td>{customer.id}</td>
               <td>
                 {customer.firstName} {customer.lastName}
