@@ -26,7 +26,16 @@ const Navigation = () => {
             Customers
           </NavLink>
         </li>
-        {/* Add more links as needed */}
+        <li>
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Products
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
