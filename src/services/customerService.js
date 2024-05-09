@@ -16,6 +16,11 @@ export function createCustomer(
   });
 }
 
-export const getCustomers = () => {
-  return customerApiClient.get("/customers");
+export const getCustomers = (searchParams, page) => {
+  const params = new URLSearchParams({
+    ...searchParams,
+    pageNumber: page,
+  });
+
+  return customerApiClient.get("/customers", { params: params });
 };
