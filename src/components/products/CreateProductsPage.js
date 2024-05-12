@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./CreateProducts.scss";
+import { createProduct } from "../../services/productService";
 
 const CreateProductsPage = () => {
   const [productName, setProductName] = useState("");
@@ -9,7 +10,7 @@ const CreateProductsPage = () => {
   const [durationOptions, setDurationOptions] = useState([
     { years: "", price: "" },
   ]);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleCompatibilityChange = (deviceType) => {
     setCompatibility(
@@ -57,16 +58,11 @@ const CreateProductsPage = () => {
       years: option.years,
       price: option.price.replace(" EUR", ""),
     }));
-    const productData = {
-      productName,
-      description,
-      compatibility: compatibility.map((device) => device.toUpperCase()),
-      durationOptions: formattedDurations,
-    };
+    const comp = compatibility.map((device) => device.toUpperCase());
+
     try {
-      console.log(productData);
-      //   await createProduct(productData);
-      //   navigate("/products");
+      await createProduct(productName, description, comp, formattedDurations);
+      navigate("/products");
     } catch (error) {
       console.error("Error creating product:", error);
     }
