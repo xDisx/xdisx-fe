@@ -8,6 +8,7 @@ import CreateCustomerPage from "./components/customers/CreateCustomerPage";
 import CustomerDetailsPage from "./components/customers/CustomerDetailsPage";
 import ProductsPage from "./components/products/ProductsPage";
 import CreateProductsPage from "./components/products/CreateProductsPage";
+import ProductDetailsPage from "./components/products/ProductDetailsPage";
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
         <Route path="/customers" element={<CustomersPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/customers/:id" element={<CustomerDetailsPage />} />
+        <Route path="/products/:id" element={<ProductDetailsPage />} />
         <Route path="/contracts/create" element={<CreateContractPage />} />
         <Route path="/customers/create" element={<CreateCustomerPage />} />
         <Route path="/products/create" element={<CreateProductsPage />} />

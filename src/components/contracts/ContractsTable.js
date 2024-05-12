@@ -7,6 +7,10 @@ const ContractsTable = ({ contracts, serviceUnavailableMessage }) => {
     return <ServiceUnavailable message={serviceUnavailableMessage} />;
   }
 
+  if (!contracts) {
+    return <div className="table-container">Loading contracts</div>;
+  }
+
   return (
     <div className="table-container">
       <table>

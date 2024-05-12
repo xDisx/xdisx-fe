@@ -13,3 +13,11 @@ export function createProduct(
     durationOptions,
   });
 }
+
+export const getProducts = () => {
+  return productApiClient.get("/products");
+};
+
+export const getProduct = (id) => {
+  return productApiClient.get(`/products/${id}`);
+};
