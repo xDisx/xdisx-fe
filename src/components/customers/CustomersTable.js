@@ -9,6 +9,10 @@ const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
     return <ServiceUnavailable message={serviceUnavailableMessage} />;
   }
 
+  if (!customers) {
+    return <div className="table-container">Loading customers</div>;
+  }
+
   return (
     <div className="table-container">
       <table>

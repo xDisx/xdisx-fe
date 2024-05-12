@@ -37,6 +37,10 @@ const CustomerDetailsPage = () => {
       });
   };
 
+  if (!customer) {
+    return <div className="customer-details-container">Loading customer</div>;
+  }
+
   return (
     <div className="customer-details-container">
       <h2>Customer Details</h2>
