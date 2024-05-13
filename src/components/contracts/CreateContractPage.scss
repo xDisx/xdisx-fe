@@ -1,0 +1,110 @@
+.create-contract-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+    section {
+        background-color: #f4f4f9;
+        padding: 20px;
+        border-radius: 8px;
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        .customer-search,
+        .device-input,
+        .date-picker {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .customer-dropdown {
+            display: flex;
+            flex-direction: column;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            .customer-option {
+                padding: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+        }
+
+        .customer-info {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+
+            p {
+                margin: 5px 0;
+            }
+        }
+
+        .device-types {
+            display: flex;
+            gap: 10px;
+
+            .device-type {
+                background-color: #eee;
+                border-radius: 8px;
+                padding: 10px;
+                cursor: pointer;
+
+                input {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+
+        .product-card {
+            position: relative;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+
+            &.selected {
+                border-color: #007bff;
+                background-color: #e3f2fd;
+
+                .checkmark {
+                    display: block;
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    color: #007bff;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:disabled {
+            background-color: #ccc;
+        }
+    }
+}

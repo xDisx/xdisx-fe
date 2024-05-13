@@ -38,6 +38,7 @@ const ProductsPage = () => {
           Create Product
         </div>
       </div>
+      <h3>{products.length} products available</h3>
       <div className="products-grid">
         {products.map((product) => (
           <div
