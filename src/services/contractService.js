@@ -27,3 +27,7 @@ export const getContracts = (searchParams, page) => {
   });
   return contractApiClient.get("/contracts", { params: params });
 };
+
+export const getContract = (id) => {
+  return contractApiClient.get(`/contracts/${id}`);
+};
