@@ -20,7 +20,7 @@ const ProductsPage = () => {
   };
 
   useEffect(() => {
-    getProducts()
+    getProducts({})
       .then((response) => {
         setProducts(response.data);
       })
@@ -58,7 +58,7 @@ const ProductsPage = () => {
                   parseFloat(option.price)
                 )
               )}{" "}
-              EUR
+              €
             </p>
           </div>
         ))}

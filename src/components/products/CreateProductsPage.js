@@ -27,7 +27,7 @@ const CreateProductsPage = () => {
           const numericValue = value.replace(/[^\d]/g, "");
           return {
             ...option,
-            [field]: numericValue + (numericValue ? " EUR" : ""),
+            [field]: numericValue + (numericValue ? " €" : ""),
           };
         }
         return { ...option, [field]: value };
@@ -40,7 +40,7 @@ const CreateProductsPage = () => {
   const handleAddDuration = () => {
     if (
       durationOptions[durationOptions.length - 1].years &&
-      durationOptions[durationOptions.length - 1].price.replace(" EUR", "")
+      durationOptions[durationOptions.length - 1].price.replace(" €", "")
     ) {
       setDurationOptions([...durationOptions, { years: "", price: "" }]);
     }
@@ -56,7 +56,7 @@ const CreateProductsPage = () => {
   const handleSubmit = async () => {
     const formattedDurations = durationOptions.map((option) => ({
       years: option.years,
-      price: option.price.replace(" EUR", ""),
+      price: option.price.replace(" €", ""),
     }));
     const comp = compatibility.map((device) => device.toUpperCase());
 
@@ -74,7 +74,7 @@ const CreateProductsPage = () => {
       description &&
       compatibility.length > 0 &&
       durationOptions.every(
-        (option) => option.years && option.price.replace(" EUR", "")
+        (option) => option.years && option.price.replace(" €", "")
       )
     );
   };

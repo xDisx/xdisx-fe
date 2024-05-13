@@ -14,8 +14,11 @@ export function createProduct(
   });
 }
 
-export const getProducts = () => {
-  return productApiClient.get("/products");
+export const getProducts = (searchParams) => {
+  const params = new URLSearchParams({
+    ...searchParams,
+  });
+  return productApiClient.get("/products", { params: params });
 };
 
 export const getProduct = (id) => {

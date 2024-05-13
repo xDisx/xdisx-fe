@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../services/productService";
 import "./ProductDetails.scss";
 
-const formatCurrency = (value, currency = "EUR") => {
+const formatCurrency = (value, currency = "€") => {
   return `${value} ${currency}`; // Basic formatting, could be enhanced with Intl.NumberFormat
 };
 

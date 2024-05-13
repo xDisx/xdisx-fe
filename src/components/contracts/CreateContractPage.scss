@@ -13,14 +13,21 @@
             margin-bottom: 10px;
         }
 
-        .customer-search,
         .device-input,
         .date-picker {
-            width: 100%;
+            width: 80%;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 25px;
             border: 1px solid #ccc;
             border-radius: 8px;
+        }
+
+        .customer-search {
+            width: 81.5%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 25px;
         }
 
         .customer-dropdown {
@@ -30,6 +37,7 @@
             overflow-y: auto;
             border: 1px solid #ccc;
             border-radius: 8px;
+            width: 81.5%;
 
             .customer-option {
                 padding: 10px;
@@ -106,5 +114,36 @@
         &:disabled {
             background-color: #ccc;
         }
+    }
+}
+
+.acquisition {
+    margin-left: 3px;
+    margin-bottom: 8px;
+}
+
+
+
+.pricing-section .pricing-list .pricing-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+
+    &.selected {
+        background-color: #4CAF50;
+        color: white;
+        border: 2px solid #367b3a; // Ensure this is visible
+    }
+
+    &:hover.selected {
+        background-color: darken(#4CAF50, 10%);
     }
 }

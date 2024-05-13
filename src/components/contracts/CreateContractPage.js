@@ -33,7 +33,7 @@ const CreateContractPage = () => {
 
   useEffect(() => {
     if (deviceType) {
-      getProducts(deviceType).then((response) => {
+      getProducts({ deviceType: deviceType.toUpperCase() }).then((response) => {
         setProducts(response.data);
       });
     }
@@ -57,27 +57,71 @@ const CreateContractPage = () => {
   }, []);
 
   const handleCreateContract = async () => {
-    const { period, price } = selectedConfiguration || {};
-    if (selectedCustomer?.id && selectedProduct?.id && period && price) {
-      await createContract({
-        customerId: selectedCustomer.id,
-        productId: selectedProduct.id,
-        period,
+    const { years, price } = selectedConfiguration || {};
+
+    if (
+      selectedCustomer?.id &&
+      selectedProduct?.id &&
+      years &&
+      price &&
+      deviceCode &&
+      deviceType
+    ) {
+      await createContract(
+        selectedCustomer.id,
+        selectedProduct.id,
+        years,
         price,
-      });
+        deviceCode,
+        deviceType.toUpperCase(),
+        acquisitionDate
+      );
+
       navigate("/contracts");
     }
   };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setCustomerName(value);
+    if (value.length > 2) {
+      const searchParams = { customerName: value };
+      getCustomers(searchParams, 0).then((response) => {
+        setCustomers(response.data.customers);
+      });
+    } else {
+      setCustomers([]);
+      setSelectedCustomer(null);
+    }
+  };
+
+  const handleSelectConfiguration = (option) => {
+    setSelectedConfiguration(option);
+    console.log("Selected Configuration: ", option);
+  };
+
+  const formatDateForAPI = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = `${d.getMonth() + 1}`.padStart(2, "0"); // Months are zero-indexed in JS
+    const day = `${d.getDate()}`.padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleDateChange = (date) => {
+    setAcquisitionDate(formatDateForAPI(date));
+  };
+
   return (
     <div className="create-contract-container">
+      <h1>Create a new contract</h1>
       <section>
         <h2>Select Customer</h2>
         <input
           type="search"
           className="customer-search"
           value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
+          onChange={handleInputChange}
           placeholder="Search customer by name"
         />
         {customers.length > 0 && (
@@ -110,25 +154,23 @@ const CreateContractPage = () => {
           </div>
         )}
       </section>
-
       <section>
         <h2>Device Information</h2>
-        <label htmlFor="deviceCode">Device Code</label>
         <input
-          id="deviceCode"
           type="text"
           className="device-input"
           value={deviceCode}
           onChange={(e) => setDeviceCode(e.target.value)}
           placeholder="Device Code"
         />
-        <label htmlFor="acquisitionDate">Acquisition Date</label>
+        <div className="acquisition">Acquisition Date</div>
         <DatePicker
           id="acquisitionDate"
           className="date-picker"
           selected={acquisitionDate}
-          onChange={(date) => setAcquisitionDate(date)}
+          onChange={handleDateChange}
           maxDate={new Date()}
+          dateFormat={"dd.MM.yyyy"}
         />
         <div className="device-types">
           {["Laptop", "Smartphone", "Tablet"].map((type) => (
@@ -145,7 +187,6 @@ const CreateContractPage = () => {
           ))}
         </div>
       </section>
-
       <section>
         <h2>Products</h2>
         <div className="products-grid">
@@ -166,39 +207,35 @@ const CreateContractPage = () => {
           ))}
         </div>
       </section>
-
       {selectedProduct && (
         <section>
-          <h2>Pricing Information</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Period (Years)</th>
-                <th>Price (EUR)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedProduct.durationOptions.map((option, index) => (
-                <tr
-                  key={index}
-                  onClick={() => setSelectedConfiguration(option)}
-                  className={
+          <div className="pricing-section">
+            <h2>Pricing Information</h2>
+            <div className="pricing-list">
+              {selectedProduct.durationOptions.map((option) => (
+                <div
+                  key={option.id}
+                  className={`pricing-item ${
                     selectedConfiguration?.id === option.id ? "selected" : ""
-                  }
+                  }`}
+                  onClick={() => handleSelectConfiguration(option)}
                 >
-                  <td>{option.years}</td>
-                  <td>{option.price}</td>
-                </tr>
+                  <span className="year">{option.years} Years</span>
+                  <span className="price">€{option.price}</span>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </section>
       )}
-
       <button
         onClick={handleCreateContract}
         disabled={
-          !selectedCustomer || !selectedProduct || !selectedConfiguration
+          !selectedCustomer ||
+          !selectedProduct ||
+          !selectedConfiguration ||
+          !deviceCode ||
+          !deviceType
         }
       >
         Create Contract
