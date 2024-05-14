@@ -6,6 +6,7 @@ import { getCustomers } from "../../services/customerService";
 import { getProducts } from "../../services/productService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // This imports the default styling for the date picker
+import { toast } from "react-toastify";
 
 const CreateContractPage = () => {
   const navigate = useNavigate();
@@ -19,12 +20,24 @@ const CreateContractPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedConfiguration, setSelectedConfiguration] = useState(null);
   const dropdownRef = useRef(null);
+  const [serviceUnavailableMessage, setServiceUnavailableMessage] =
+    useState("");
+  const [
+    productServiceUnavailableMessage,
+    setProductServiceUnavailableMessage,
+  ] = useState("");
 
   useEffect(() => {
     if (customerName.length > 2) {
       const searchParams = { customerName };
       getCustomers(searchParams, 0).then((response) => {
-        setCustomers(response.data.customers);
+        if (response.data.customers) {
+          setCustomers(response.data.customers);
+          setServiceUnavailableMessage("");
+        } else if (response.data.serviceDown) {
+          setCustomers([]);
+          setServiceUnavailableMessage(response.data.serviceDown);
+        }
       });
     } else {
       setCustomers([]);
@@ -34,7 +47,14 @@ const CreateContractPage = () => {
   useEffect(() => {
     if (deviceType) {
       getProducts({ deviceType: deviceType.toUpperCase() }).then((response) => {
-        setProducts(response.data);
+        if (response.data.serviceDown) {
+          setProductServiceUnavailableMessage(response.data.serviceDown);
+          setProducts([]);
+          setSelectedProduct(null);
+        } else {
+          setProducts(response.data);
+          setProductServiceUnavailableMessage("");
+        }
       });
     }
   }, [deviceType]);
@@ -67,7 +87,7 @@ const CreateContractPage = () => {
       deviceCode &&
       deviceType
     ) {
-      await createContract(
+      const response = await createContract(
         selectedCustomer.id,
         selectedProduct.id,
         years,
@@ -76,8 +96,13 @@ const CreateContractPage = () => {
         deviceType.toUpperCase(),
         acquisitionDate
       );
+      if (response.data.serviceDown) {
+        toast.error("Contract service is down, please try again later!");
+        return;
+      }
+      toast.success("Contract successfully created");
 
-      navigate("/contracts");
+      navigate(`/contracts/${response.data.id}`);
     }
   };
 
@@ -87,7 +112,14 @@ const CreateContractPage = () => {
     if (value.length > 2) {
       const searchParams = { customerName: value };
       getCustomers(searchParams, 0).then((response) => {
-        setCustomers(response.data.customers);
+        if (response.data.customers) {
+          setCustomers(response.data.customers);
+          setServiceUnavailableMessage("");
+        } else if (response.data.serviceDown) {
+          setCustomers([]);
+          setSelectedCustomer(null);
+          setServiceUnavailableMessage(response.data.serviceDown);
+        }
       });
     } else {
       setCustomers([]);
@@ -153,6 +185,9 @@ const CreateContractPage = () => {
             </p>
           </div>
         )}
+        {serviceUnavailableMessage && (
+          <div className="service-unavailable">{serviceUnavailableMessage}</div>
+        )}
       </section>
       <section>
         <h2>Device Information</h2>
@@ -190,22 +225,28 @@ const CreateContractPage = () => {
       <section>
         <h2>Products</h2>
         <div className="products-grid">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className={`product-card ${
-                selectedProduct?.id === product.id ? "selected" : ""
-              }`}
-              onClick={() => setSelectedProduct(product)}
-            >
-              {selectedProduct?.id === product.id && (
-                <div className="checkmark">✔</div>
-              )}
-              <h3>{product.productName}</h3>
-              <p>{product.description}</p>
-            </div>
-          ))}
+          {products &&
+            products.map((product) => (
+              <div
+                key={product.id}
+                className={`product-card ${
+                  selectedProduct?.id === product.id ? "selected" : ""
+                }`}
+                onClick={() => setSelectedProduct(product)}
+              >
+                {selectedProduct?.id === product.id && (
+                  <div className="checkmark">✔</div>
+                )}
+                <h3>{product.productName}</h3>
+                <p>{product.description}</p>
+              </div>
+            ))}
         </div>
+        {productServiceUnavailableMessage && (
+          <div className="service-unavailable">
+            {productServiceUnavailableMessage}
+          </div>
+        )}
       </section>
       {selectedProduct && (
         <section>

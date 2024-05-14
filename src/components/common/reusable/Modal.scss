@@ -16,7 +16,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 600px;
     z-index: 1051;
 
     .modal-header {
@@ -30,21 +30,22 @@
             border: none;
             background: none;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 34px;
         }
     }
 
     .modal-body {
         padding: 20px 0;
-
+        font-size: 19px;
         p {
             margin: 0;
         }
+        margin-bottom: 20px;
     }
 
     .modal-footer {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-around;
         gap: 10px;
 
         button {
@@ -54,6 +55,9 @@
             border: none;
             background-color: #007bff;
             color: white;
+            font-size: large;
+            width: 100px;
+            height: 50px;
 
             &:hover {
                 background-color: #0056b3;

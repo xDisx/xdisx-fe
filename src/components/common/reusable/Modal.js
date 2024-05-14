@@ -9,7 +9,7 @@ const Modal = ({ isOpen, title, content, onConfirm, onCancel }) => {
     <div className="modal-overlay">
       <div className="modal">
         <div className="modal-header">
-          <h5>{title}</h5>
+          <h2>{title}</h2>
           <button onClick={onCancel} className="close-button">
             &times;
           </button>

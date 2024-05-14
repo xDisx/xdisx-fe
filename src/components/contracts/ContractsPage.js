@@ -17,8 +17,8 @@ const ContractsPage = () => {
         if (response.data.contracts) {
           setContracts(response.data.contracts);
           setServiceUnavailableMessage("");
-        } else if (response.data.message) {
-          setServiceUnavailableMessage(response.data.message);
+        } else if (response.data.serviceDown) {
+          setServiceUnavailableMessage(response.data.serviceDown);
           setContracts([]); // Clear any previously loaded contracts
         }
       })

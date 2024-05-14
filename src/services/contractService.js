@@ -31,3 +31,7 @@ export const getContracts = (searchParams, page) => {
 export const getContract = (id) => {
   return contractApiClient.get(`/contracts/${id}`);
 };
+
+export const updateContractStatus = (contractId, newStatus) => {
+  return contractApiClient.put(`/contracts/${contractId}`, { newStatus });
+};

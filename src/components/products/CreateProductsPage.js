@@ -10,6 +10,9 @@ const CreateProductsPage = () => {
   const [durationOptions, setDurationOptions] = useState([
     { years: "", price: "" },
   ]);
+  const [serviceUnavailableMessage, setServiceUnavailableMessage] =
+    useState("");
+
   const navigate = useNavigate();
 
   const handleCompatibilityChange = (deviceType) => {
@@ -61,7 +64,16 @@ const CreateProductsPage = () => {
     const comp = compatibility.map((device) => device.toUpperCase());
 
     try {
-      await createProduct(productName, description, comp, formattedDurations);
+      const response = await createProduct(
+        productName,
+        description,
+        comp,
+        formattedDurations
+      );
+      if (response.data.serviceDown) {
+        setServiceUnavailableMessage(response.data.serviceDown);
+        return;
+      }
       navigate("/products");
     } catch (error) {
       console.error("Error creating product:", error);
@@ -78,6 +90,12 @@ const CreateProductsPage = () => {
       )
     );
   };
+
+  if (serviceUnavailableMessage) {
+    return (
+      <div className="service-unavailable">{serviceUnavailableMessage}</div>
+    );
+  }
 
   return (
     <div className="create-products-container">

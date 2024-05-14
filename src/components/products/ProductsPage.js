@@ -5,6 +5,10 @@ import { getProducts } from "../../services/productService";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [
+    productServiceUnavailableMessage,
+    setProductServiceUnavailableMessage,
+  ] = useState("");
   const handleCreateClick = () => {
     navigate("/products/create");
   };
@@ -22,10 +26,24 @@ const ProductsPage = () => {
   useEffect(() => {
     getProducts({})
       .then((response) => {
-        setProducts(response.data);
+        if (response.data.serviceDown) {
+          setProducts([]);
+          setProductServiceUnavailableMessage(response.data.serviceDown);
+        } else {
+          setProducts(response.data);
+          setProductServiceUnavailableMessage("");
+        }
       })
       .catch(() => {});
   }, []);
+
+  if (productServiceUnavailableMessage) {
+    return (
+      <div className="service-unavailable">
+        {productServiceUnavailableMessage}
+      </div>
+    );
+  }
 
   if (!products) {
     return <div className="contracts-container">Loading products</div>;

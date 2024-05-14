@@ -9,12 +9,25 @@ const CustomerDetailsPage = () => {
   const [customer, setCustomer] = useState(null);
   const [contracts, setContracts] = useState([]);
   const [totalElements, setTotalElements] = useState(null);
+  const [serviceUnavailableMessage, setServiceUnavailableMessage] =
+    useState("");
+  const [
+    customerServiceUnavailableMessage,
+    setCustomerServiceUnavailableMessage,
+  ] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
     getCustomer(id)
       .then((response) => {
-        setCustomer(response.data);
+        if (response.data.serviceDown) {
+          setCustomer(null);
+          setCustomerServiceUnavailableMessage(response.data.serviceDown);
+        } else {
+          setCustomer(response.data);
+          setCustomerServiceUnavailableMessage("");
+        }
+
         fetchContracts(id);
       })
       .catch((err) => {
@@ -29,13 +42,28 @@ const CustomerDetailsPage = () => {
     };
     getContracts(searchParams, 0)
       .then((response) => {
-        setContracts(response.data.contracts);
-        setTotalElements(response.data.totalElements);
+        if (response.data.serviceDown) {
+          setContracts([]);
+          setTotalElements(0);
+          setServiceUnavailableMessage(response.data.serviceDown);
+        } else {
+          setContracts(response.data.contracts);
+          setTotalElements(response.data.totalElements);
+          setServiceUnavailableMessage("");
+        }
       })
       .catch((error) => {
         console.error("Failed to fetch contracts:", error);
       });
   };
+
+  if (customerServiceUnavailableMessage) {
+    return (
+      <div className="service-unavailable">
+        {customerServiceUnavailableMessage}
+      </div>
+    );
+  }
 
   if (!customer) {
     return <div className="customer-details-container">Loading customer</div>;
@@ -73,7 +101,10 @@ const CustomerDetailsPage = () => {
       )}
       <h3>Contracts</h3>
       <h4>{totalElements} contracts</h4>
-      <ContractsTable contracts={contracts} />
+      <ContractsTable
+        contracts={contracts}
+        serviceUnavailableMessage={serviceUnavailableMessage}
+      />
     </div>
   );
 };
