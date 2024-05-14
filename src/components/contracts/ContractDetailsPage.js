@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getContract } from "../../services/contractService";
 import { getProduct } from "../../services/productService";
@@ -14,6 +14,12 @@ const ContractDetailsPage = () => {
   const [customer, setCustomer] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [actionToConfirm, setActionToConfirm] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const statusTransitions = {
+    CREATED: ["ACTIVE", "REJECTED"],
+    ACTIVE: ["TERMINATED"],
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,47 +37,55 @@ const ContractDetailsPage = () => {
     fetchData();
   }, [id]);
 
-  const confirmAction = (status) => {
-    setActionToConfirm(status);
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const confirmAction = (newStatus) => {
+    setActionToConfirm(newStatus);
     setShowModal(true);
+    setShowDropdown(false); // Close dropdown when modal opens
   };
 
   const handleConfirmAction = async () => {
+    console.log({ contractId: id, newStatus: actionToConfirm });
     //await updateContractStatus({ contractId: id, newStatus: actionToConfirm });
     //navigate("/contracts");
-  };
-
-  const statusTransitions = {
-    CREATED: ["ACTIVE", "REJECTED"],
-    ACTIVE: ["TERMINATED"],
+    setShowModal(false);
   };
 
   return (
     <div className="contract-details-page">
-      {contract && ["CREATED", "ACTIVE"].includes(contract.contractStatus) && (
-        <div className="actions">
-          <button onClick={() => setShowModal(true)} className="action-button">
-            Action
-          </button>
-          {showModal && (
-            <Modal
-              isOpen={showModal}
-              title="Confirm Action"
-              content={`Are you sure you want to change the status to ${actionToConfirm}?`}
-              onConfirm={handleConfirmAction}
-              onCancel={() => setShowModal(false)}
-            />
-          )}
-          <div className="dropdown-content">
-            {["CREATED", "ACTIVE"].includes(contract.contractStatus) &&
-              ["ACTIVE", "REJECTED"].map((status) => (
-                <div key={status} onClick={() => confirmAction(status)}>
-                  {status}
-                </div>
-              ))}
+      <div className="header">
+        <h1>Contract Details</h1>
+        {contract && statusTransitions[contract.contractStatus] && (
+          <div className="actions">
+            <button onClick={handleDropdownToggle} className="action-button">
+              Action
+            </button>
+            {showDropdown && (
+              <div className="dropdown-content">
+                {statusTransitions[contract.contractStatus].map((status) => (
+                  <div key={status} onClick={() => confirmAction(status)}>
+                    {status}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        )}
+      </div>
+
+      {showModal && (
+        <Modal
+          isOpen={showModal}
+          title="Confirm Action"
+          content={`Are you sure you want to change the status to ${actionToConfirm}?`}
+          onConfirm={handleConfirmAction}
+          onCancel={() => setShowModal(false)}
+        />
       )}
+
       <div className="section">
         <div className="row">
           <div>
