@@ -10,6 +10,9 @@ const CreateProductsPage = () => {
   const [durationOptions, setDurationOptions] = useState([
     { years: "", price: "" },
   ]);
+  const [serviceUnavailableMessage, setServiceUnavailableMessage] =
+    useState("");
+
   const navigate = useNavigate();
 
   const handleCompatibilityChange = (deviceType) => {
@@ -27,7 +30,7 @@ const CreateProductsPage = () => {
           const numericValue = value.replace(/[^\d]/g, "");
           return {
             ...option,
-            [field]: numericValue + (numericValue ? " EUR" : ""),
+            [field]: numericValue + (numericValue ? " €" : ""),
           };
         }
         return { ...option, [field]: value };
@@ -40,7 +43,7 @@ const CreateProductsPage = () => {
   const handleAddDuration = () => {
     if (
       durationOptions[durationOptions.length - 1].years &&
-      durationOptions[durationOptions.length - 1].price.replace(" EUR", "")
+      durationOptions[durationOptions.length - 1].price.replace(" €", "")
     ) {
       setDurationOptions([...durationOptions, { years: "", price: "" }]);
     }
@@ -56,12 +59,21 @@ const CreateProductsPage = () => {
   const handleSubmit = async () => {
     const formattedDurations = durationOptions.map((option) => ({
       years: option.years,
-      price: option.price.replace(" EUR", ""),
+      price: option.price.replace(" €", ""),
     }));
     const comp = compatibility.map((device) => device.toUpperCase());
 
     try {
-      await createProduct(productName, description, comp, formattedDurations);
+      const response = await createProduct(
+        productName,
+        description,
+        comp,
+        formattedDurations
+      );
+      if (response.data.serviceDown) {
+        setServiceUnavailableMessage(response.data.serviceDown);
+        return;
+      }
       navigate("/products");
     } catch (error) {
       console.error("Error creating product:", error);
@@ -74,10 +86,16 @@ const CreateProductsPage = () => {
       description &&
       compatibility.length > 0 &&
       durationOptions.every(
-        (option) => option.years && option.price.replace(" EUR", "")
+        (option) => option.years && option.price.replace(" €", "")
       )
     );
   };
+
+  if (serviceUnavailableMessage) {
+    return (
+      <div className="service-unavailable">{serviceUnavailableMessage}</div>
+    );
+  }
 
   return (
     <div className="create-products-container">

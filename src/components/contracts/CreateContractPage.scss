@@ -1,0 +1,150 @@
+.create-contract-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+    section {
+        background-color: #f4f4f9;
+        padding: 20px;
+        border-radius: 8px;
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        .device-input,
+        .date-picker {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .customer-search {
+            width: 81.5%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 25px;
+        }
+
+        .customer-dropdown {
+            display: flex;
+            flex-direction: column;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 81.5%;
+
+            .customer-option {
+                padding: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+        }
+
+        .customer-info {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            width: 80%;
+
+            p {
+                margin: 5px 0;
+            }
+        }
+
+        .device-types {
+            display: flex;
+            gap: 10px;
+
+            .device-type {
+                background-color: #eee;
+                border-radius: 8px;
+                padding: 10px;
+                cursor: pointer;
+
+                input {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+
+        .product-card {
+            position: relative;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+
+            &.selected {
+                border-color: #007bff;
+                background-color: #e3f2fd;
+
+                .checkmark {
+                    display: block;
+                    position: absolute;
+                    top: 5px;
+                    left: 5px;
+                    color: #007bff;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:disabled {
+            background-color: #ccc;
+        }
+    }
+}
+
+.acquisition {
+    margin-left: 3px;
+    margin-bottom: 8px;
+}
+
+
+
+.pricing-section .pricing-list .pricing-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+
+    &.selected {
+        background-color: #4CAF50;
+        color: white;
+        border: 2px solid #367b3a; // Ensure this is visible
+    }
+
+    &:hover.selected {
+        background-color: darken(#4CAF50, 10%);
+    }
+}

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../services/productService";
 import "./ProductDetails.scss";
 
-const formatCurrency = (value, currency = "EUR") => {
+const formatCurrency = (value, currency = "€") => {
   return `${value} ${currency}`; // Basic formatting, could be enhanced with Intl.NumberFormat
 };
 
@@ -11,11 +11,21 @@ const ProductDetailsPage = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState("");
   const { id } = useParams();
+  const [
+    productServiceUnavailableMessage,
+    setProductServiceUnavailableMessage,
+  ] = useState("");
 
   useEffect(() => {
     getProduct(id)
       .then((response) => {
-        setProduct(response.data);
+        if (response.data.serviceDown) {
+          setProduct(null);
+          setProductServiceUnavailableMessage(response.data.serviceDown);
+        } else {
+          setProduct(response.data);
+          setProductServiceUnavailableMessage("");
+        }
       })
       .catch((error) => {
         console.error("Failed to fetch product details:", error);
@@ -25,6 +35,14 @@ const ProductDetailsPage = () => {
 
   if (error) {
     return <div className="error">{error}</div>;
+  }
+
+  if (productServiceUnavailableMessage) {
+    return (
+      <div className="service-unavailable">
+        {productServiceUnavailableMessage}
+      </div>
+    );
   }
 
   if (!product) {

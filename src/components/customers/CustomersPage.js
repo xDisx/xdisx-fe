@@ -32,9 +32,11 @@ const CustomersPage = () => {
           setTotalPages(response.data.totalPages);
           setTotalElements(response.data.totalElements);
           setServiceUnavailableMessage("");
-        } else if (response.data.message) {
-          setServiceUnavailableMessage(response.data.message);
+        } else if (response.data.serviceDown) {
+          setServiceUnavailableMessage(response.data.serviceDown);
           setCustomers([]);
+          setTotalPages(0);
+          setTotalElements(0);
         }
       })
       .catch((error) => {

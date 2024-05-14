@@ -1,7 +1,23 @@
 import contractApiClient from "../utils/contractApiClient";
 
-export function createContract(contractType, customerId) {
-  return contractApiClient.post("/contract", { contractType, customerId });
+export function createContract(
+  customerId,
+  productId,
+  period,
+  price,
+  deviceCode,
+  deviceType,
+  acquisitionDate
+) {
+  return contractApiClient.post("/contract", {
+    customerId,
+    productId,
+    period,
+    price,
+    deviceCode,
+    deviceType,
+    acquisitionDate,
+  });
 }
 
 export const getContracts = (searchParams, page) => {
@@ -10,4 +26,12 @@ export const getContracts = (searchParams, page) => {
     pageNumber: page,
   });
   return contractApiClient.get("/contracts", { params: params });
+};
+
+export const getContract = (id) => {
+  return contractApiClient.get(`/contracts/${id}`);
+};
+
+export const updateContractStatus = (contractId, newStatus) => {
+  return contractApiClient.put(`/contracts/${contractId}`, { newStatus });
 };
