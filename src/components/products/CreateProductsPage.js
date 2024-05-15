@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateProducts.scss";
 import { createProduct } from "../../services/productService";
+import { toast } from "react-toastify";
 
 const CreateProductsPage = () => {
   const [productName, setProductName] = useState("");
@@ -10,8 +11,6 @@ const CreateProductsPage = () => {
   const [durationOptions, setDurationOptions] = useState([
     { years: "", price: "" },
   ]);
-  const [serviceUnavailableMessage, setServiceUnavailableMessage] =
-    useState("");
 
   const navigate = useNavigate();
 
@@ -71,9 +70,10 @@ const CreateProductsPage = () => {
         formattedDurations
       );
       if (response.data.serviceDown) {
-        setServiceUnavailableMessage(response.data.serviceDown);
+        toast.error("Product service is down, please try again later!");
         return;
       }
+      toast.success("Product successfully created");
       navigate("/products");
     } catch (error) {
       console.error("Error creating product:", error);
@@ -90,12 +90,6 @@ const CreateProductsPage = () => {
       )
     );
   };
-
-  if (serviceUnavailableMessage) {
-    return (
-      <div className="service-unavailable">{serviceUnavailableMessage}</div>
-    );
-  }
 
   return (
     <div className="create-products-container">

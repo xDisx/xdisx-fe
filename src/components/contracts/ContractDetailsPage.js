@@ -210,6 +210,7 @@ const ContractDetailsPage = () => {
           </div>
         ) : (
           <>
+            <h3>Customer information</h3>
             <div className="row">
               <div>
                 <strong>First Name:</strong>

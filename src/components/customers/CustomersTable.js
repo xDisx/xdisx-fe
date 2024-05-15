@@ -5,11 +5,7 @@ import ServiceUnavailable from "../common/reusable/ServiceUnavailable";
 const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
   const navigate = useNavigate();
 
-  if (serviceUnavailableMessage) {
-    return <ServiceUnavailable message={serviceUnavailableMessage} />;
-  }
-
-  if (!customers) {
+  if (!customers && !serviceUnavailableMessage) {
     return <div className="table-container">Loading customers</div>;
   }
 
@@ -21,25 +17,29 @@ const CustomersTable = ({ customers, serviceUnavailableMessage }) => {
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Created</th>
+            <th>Created On</th>
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer) => (
-            <tr
-              key={customer.id}
-              onClick={() => navigate(`/customers/${customer.id}`)}
-            >
-              <td>{customer.id}</td>
-              <td>
-                {customer.firstName} {customer.lastName}
-              </td>
-              <td>{customer.email}</td>
-              <td>{customer.created} UTC</td>
-            </tr>
-          ))}
+          {customers &&
+            customers.map((customer) => (
+              <tr
+                key={customer.id}
+                onClick={() => navigate(`/customers/${customer.id}`)}
+              >
+                <td>{customer.id}</td>
+                <td>
+                  {customer.firstName} {customer.lastName}
+                </td>
+                <td>{customer.email}</td>
+                <td>{customer.created} UTC</td>
+              </tr>
+            ))}
         </tbody>
       </table>
+      {serviceUnavailableMessage && (
+        <ServiceUnavailable message={serviceUnavailableMessage} />
+      )}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateCustomerPage.scss";
 import { createCustomer } from "../../services/customerService";
+import { toast } from "react-toastify";
 
 const CreateCustomerPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,18 @@ const CreateCustomerPage = () => {
     const { firstName, lastName, email, phoneNumber, address } = customer;
     if (isFormValid) {
       try {
-        await createCustomer(firstName, lastName, email, phoneNumber, address);
+        const response = await createCustomer(
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          address
+        );
+        if (response.data.serviceDown) {
+          toast.error("Customer service is down, please try again later!");
+          return;
+        }
+        toast.success("Customer created succesfully!");
         navigate("/customers");
       } catch (error) {
         console.error("Failed to create customer:", error);
