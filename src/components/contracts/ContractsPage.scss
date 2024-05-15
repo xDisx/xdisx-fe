@@ -1,5 +1,39 @@
 .contracts-container {
     border: 1px solid blue;
+
+        .search-section {
+                border: solid 1px red;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-bottom: 20px;
+                width: 100%;
+        
+                .action-buttons {
+                    border: solid 1px black;
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    padding-right: 50px;
+                }
+        
+                input {
+                    margin-right: 40px;
+                    padding: 20px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    width: 74%;
+                }
+        
+                button {
+                    padding: 8px 12px;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    font-size: 23px;
+                    margin-left: 25px;
+                }
+            }
 }
 
 .create-button-row {
@@ -45,3 +79,33 @@
            }
 }
 
+.select-container {
+    width: 74%;
+    margin-right: 40px;
+
+    select {
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+        color: #333;
+        font-size: 16px;
+        appearance: none; // Remove default dropdown arrow
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px top 50%;
+        background-size: 10px;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        // Placeholder option style
+        option:first-of-type {
+            color: #999;
+        }
+    }
+}
