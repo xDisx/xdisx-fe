@@ -12,6 +12,7 @@ const ContractDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [contract, setContract] = useState(null);
+  const [pdf, setPdf] = useState(null);
   const [product, setProduct] = useState(null);
   const [customer, setCustomer] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -53,6 +54,10 @@ const ContractDetailsPage = () => {
         setServiceUnavailableMessage(contractData.data.serviceDown);
       } else {
         setContract(contractData.data);
+        if (contractData.data.contractDocument) {
+          const pdfData = `data:application/pdf;base64,${contractData.data.contractDocument}`;
+          setPdf(pdfData);
+        }
         if (contractData.data.productId) {
           const productData = await getProduct(contractData.data.productId);
           if (productData.data.serviceDown) {
@@ -186,6 +191,19 @@ const ContractDetailsPage = () => {
             <strong>Planned End Date:</strong>
             <div>{contract?.contractPlannedEndDate || "-"}</div>
           </div>
+          <div>
+            <strong>Document:</strong>
+            <div>
+              {pdf ? (
+                <a href={pdf} download="contract.pdf" className="download-link">
+                  Download Document
+                </a>
+              ) : (
+                "-"
+              )}
+            </div>
+          </div>
+          <div></div>
         </div>
       </div>
       <div className="section">
