@@ -279,7 +279,7 @@ const CreateContractPage = () => {
           !deviceType
         }
       >
-        Create Contract
+        Add Contract
       </button>
     </div>
   );

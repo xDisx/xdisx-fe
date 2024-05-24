@@ -53,7 +53,7 @@ const CreateCustomerPage = () => {
         toast.success("Customer created succesfully!");
         navigate("/customers");
       } catch (error) {
-        console.error("Failed to create customer:", error);
+        console.error("Failed to add customer:", error);
       }
     }
   };
@@ -114,7 +114,7 @@ const CreateCustomerPage = () => {
         className="create-button"
         disabled={!isFormValid}
       >
-        Create Customer
+        Add Customer
       </button>
     </div>
   );

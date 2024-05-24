@@ -130,7 +130,7 @@ const ContractsPage = () => {
           }
           onClick={handleCreateClick}
         >
-          Create Contract
+          Add Contract
         </div>
       </div>
       {!serviceUnavailableMessage ? (

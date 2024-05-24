@@ -118,7 +118,7 @@ const CustomersPage = () => {
           }
           onClick={handleCreateClick}
         >
-          Create Customer
+          Add Customer
         </div>
       </div>
       {!serviceUnavailableMessage ? (

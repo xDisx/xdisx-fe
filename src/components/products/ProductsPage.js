@@ -51,9 +51,9 @@ const ProductsPage = () => {
 
   return (
     <div className="contracts-container">
-      <div className="create-button-row">
+      <div className="create-button-row-product">
         <div className="create-button" onClick={handleCreateClick}>
-          Create Product
+          Add Product
         </div>
       </div>
       <h3>{products.length} products available</h3>

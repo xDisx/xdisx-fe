@@ -1,8 +1,9 @@
 .customers-container {
-    border: 1px solid blue;
 
     .search-section {
-        border: solid 1px red;
+                    border: 1px solid black;
+                        padding: 1px;
+                        border-radius: 5px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -10,7 +11,6 @@
         width: 100%;
 
         .action-buttons {
-                    border: solid 1px black;
                     width: 100%;
                     display: flex;
                     justify-content: flex-end;
@@ -37,7 +37,6 @@
 }
 
 .create-button-row {
-    border: 1px solid black;
     display: flex;
     justify-content: flex-end;
     margin-bottom: 50px;
