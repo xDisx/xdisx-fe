@@ -93,7 +93,7 @@ const CreateProductsPage = () => {
 
   return (
     <div className="create-products-container">
-      <h2>Create Product</h2>
+      <h2>Add Product</h2>
       <section>
         <h3>Basic Information</h3>
         <input
@@ -159,7 +159,7 @@ const CreateProductsPage = () => {
         <button onClick={handleAddDuration}>+</button>
       </section>
       <button onClick={handleSubmit} disabled={!isFormValid()}>
-        Create Product
+        Add Product
       </button>
     </div>
   );
