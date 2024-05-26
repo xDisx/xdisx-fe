@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getCustomer } from "../../services/customerService"; // Assume you have this service
+import { getCustomer } from "../../services/customerService";
 import { getContracts } from "../../services/contractService";
 import ContractsTable from "../contracts/ContractsTable";
 import "./CustomerDetailsPage.scss";

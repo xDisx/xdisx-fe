@@ -90,10 +90,8 @@ const ContractDetailsPage = () => {
       }
     };
 
-    // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
@@ -105,7 +103,7 @@ const ContractDetailsPage = () => {
   const confirmAction = (newStatus) => {
     setActionToConfirm(newStatus);
     setShowModal(true);
-    setShowDropdown(false); // Close dropdown when modal opens
+    setShowDropdown(false);
   };
 
   const handleConfirmAction = async () => {

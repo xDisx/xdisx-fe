@@ -66,7 +66,7 @@ const ContractsPage = () => {
     const page = 0;
     setSearchParams(resetParams);
     setCurrentPage(page);
-    fetchContractsDirect(resetParams, page); // Pass the reset parameters directly
+    fetchContractsDirect(resetParams, page);
   };
 
   const handlePageClick = (page) => {

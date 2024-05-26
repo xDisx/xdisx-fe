@@ -5,7 +5,7 @@ import { createContract } from "../../services/contractService";
 import { getCustomers } from "../../services/customerService";
 import { getProducts } from "../../services/productService";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // This imports the default styling for the date picker
+import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 
 const CreateContractPage = () => {
@@ -135,7 +135,7 @@ const CreateContractPage = () => {
   const formatDateForAPI = (date) => {
     const d = new Date(date);
     const year = d.getFullYear();
-    const month = `${d.getMonth() + 1}`.padStart(2, "0"); // Months are zero-indexed in JS
+    const month = `${d.getMonth() + 1}`.padStart(2, "0");
     const day = `${d.getDate()}`.padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
