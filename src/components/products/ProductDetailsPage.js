@@ -4,7 +4,7 @@ import { getProduct } from "../../services/productService";
 import "./ProductDetails.scss";
 
 const formatCurrency = (value, currency = "€") => {
-  return `${value} ${currency}`; // Basic formatting, could be enhanced with Intl.NumberFormat
+  return `${value} ${currency}`;
 };
 
 const ProductDetailsPage = () => {

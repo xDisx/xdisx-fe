@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./Modal.scss"; // Assuming you will create a separate SCSS file for styling
+import "./Modal.scss";
 
 const Modal = ({ isOpen, title, content, onConfirm, onCancel }) => {
   if (!isOpen) return null;

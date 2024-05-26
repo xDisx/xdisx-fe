@@ -18,7 +18,6 @@ const ProductsPage = () => {
     navigate(`/products/${productId}`);
   };
 
-  // Function to convert uppercase strings to title case
   const toTitleCase = (str) => {
     return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
   };

@@ -62,7 +62,7 @@ const CustomersPage = () => {
     const page = 0;
     setSearchParams(resetParams);
     setCurrentPage(page);
-    fetchCustomersDirect(resetParams, page); // Pass the reset parameters directly
+    fetchCustomersDirect(resetParams, page);
   };
 
   const handlePageClick = (page) => {
